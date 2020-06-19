@@ -3,9 +3,9 @@ using Api.Data.Models;
 
 namespace Api.Data.Contexts
 {
-    public class CarClubContext : DbContext
+    public class CheckListContext : DbContext
     {
-        public CarClubContext(DbContextOptions<CarClubContext> options)
+        public CheckListContext(DbContextOptions<CheckListContext> options)
         : base(options)
         {
 

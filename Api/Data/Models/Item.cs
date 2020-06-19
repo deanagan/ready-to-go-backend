@@ -6,7 +6,8 @@ namespace Api.Data.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Quantity { get; set; }
+
+        public int ItemDetailId { get; set; }
 
         // Navigational Property
         public ICollection<CheckListToItem> CheckListToItems { get; set; }

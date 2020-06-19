@@ -11,11 +11,17 @@ namespace Api.Data.Contexts
 
         }
 
-        public DbSet<Item> Items {get;set;}
-        public DbSet<ItemDetail> ItemDetails {get;set;}
+        public DbSet<CheckList> CheckLists {get; set;}
+        public DbSet<CheckListToItem> CheckListToItems {get; set;}
+        public DbSet<Item> Items {get; set;}
+        public DbSet<ItemDetail> ItemDetails {get; set;}
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CheckListToItem>()
+                .HasKey(cti => new { cti.ItemId, cti.CheckListId }
+            );
 
             modelBuilder.Entity<ItemDetail>()
                 .HasOne<Item>(i => i.Item)
@@ -25,6 +31,14 @@ namespace Api.Data.Contexts
             modelBuilder.Entity<Item>(
                 i => {
                     i.HasKey(i => i.Id);
+                }
+            );
+
+            modelBuilder.Entity<CheckList>().HasData(
+                new CheckList {
+                    Id = 1,
+                    Name = "T-shirt",
+                    Description = "This is a checklist for my full marathon!"
                 }
             );
 
@@ -76,6 +90,14 @@ namespace Api.Data.Contexts
                     Ready = false,
                     Quantity = 1
                 }
+            );
+
+
+             modelBuilder.Entity<CheckListToItem>().HasData(
+                new CheckListToItem { CheckListId = 1, ItemId = 1 },
+                new CheckListToItem { CheckListId = 1, ItemId = 2 },
+                new CheckListToItem { CheckListId = 1, ItemId = 3 },
+                new CheckListToItem { CheckListId = 1, ItemId = 4 },
             );
         }
 

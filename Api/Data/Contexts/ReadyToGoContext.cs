@@ -3,9 +3,9 @@ using Api.Data.Models;
 
 namespace Api.Data.Contexts
 {
-    public class CheckListContext : DbContext
+    public class ReadyToGoContext : DbContext
     {
-        public CheckListContext(DbContextOptions<CheckListContext> options)
+        public ReadyToGoContext(DbContextOptions<ReadyToGoContext> options)
         : base(options)
         {
 
@@ -19,16 +19,16 @@ namespace Api.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CheckListToItem>()
-                .HasKey(cti => new { cti.ItemId, cti.CheckListId }
+            modelBuilder.Entity<CheckListToItem>().HasKey(
+                cti => new { cti.ItemId, cti.CheckListId }
             );
 
-            modelBuilder.Entity<ItemDetail>()
-                .HasOne<Item>(i => i.Item)
-                .WithOne(itd => itd.ItemDetail)
-                .HasForeignKey<Item>(itd => itd.Id);
+            modelBuilder.Entity<Item>()
+                .HasOne<ItemDetail>(i => i.ItemDetail)
+                .WithOne(itd => itd.Item)
+                .HasForeignKey<ItemDetail>(itd => itd.Id);
 
-            modelBuilder.Entity<Item>(
+            modelBuilder.Entity<ItemDetail>(
                 i => {
                     i.HasKey(i => i.Id);
                 }
@@ -37,7 +37,7 @@ namespace Api.Data.Contexts
             modelBuilder.Entity<CheckList>().HasData(
                 new CheckList {
                     Id = 1,
-                    Name = "T-shirt",
+                    Name = "Full Marathon",
                     Description = "This is a checklist for my full marathon!"
                 }
             );
@@ -73,19 +73,19 @@ namespace Api.Data.Contexts
                     Quantity = 3
                 },
                 new ItemDetail {
-                    Id = 1,
+                    Id = 2,
                     Description = "Extra Pants",
                     Ready = false,
                     Quantity = 1
                 },
                 new ItemDetail {
-                    Id = 1,
+                    Id = 3,
                     Description = "Empty Bottle",
                     Ready = false,
                     Quantity = 1
                 },
                 new ItemDetail {
-                    Id = 1,
+                    Id = 4,
                     Description = "Bring the electric one!",
                     Ready = false,
                     Quantity = 1
@@ -97,7 +97,7 @@ namespace Api.Data.Contexts
                 new CheckListToItem { CheckListId = 1, ItemId = 1 },
                 new CheckListToItem { CheckListId = 1, ItemId = 2 },
                 new CheckListToItem { CheckListId = 1, ItemId = 3 },
-                new CheckListToItem { CheckListId = 1, ItemId = 4 },
+                new CheckListToItem { CheckListId = 1, ItemId = 4 }
             );
         }
 

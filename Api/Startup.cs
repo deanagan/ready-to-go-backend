@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using Api.Data.Contexts;
+using Microsoft.EntityFrameworkCore; // Add to invoke UseSqlServer
+
 namespace Api
 {
     public class Startup
@@ -26,6 +29,9 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=ReadyToGo;Trusted_Connection=True;ConnectRetryCount=0";
+	        services.AddDbContext<ReadyToGoContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

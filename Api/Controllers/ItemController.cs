@@ -13,6 +13,10 @@ namespace Api.Controllers
             _logger = logger;
         }
 
-
+        [HttpGet("/[action]/{id}")]
+        public IActionResult GetItem(int id)
+        {
+            return Ok();
+        }
     }
 }

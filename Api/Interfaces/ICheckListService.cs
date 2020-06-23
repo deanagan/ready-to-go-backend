@@ -6,8 +6,8 @@ namespace Api.Interfaces
 {
     public interface ICheckListService
     {
-        IEnumerable<CheckList> GetCheckLists();
-        CheckList GetCheckList(int id);
+        IEnumerable<CheckListView> GetCheckLists();
+        CheckListView GetCheckList(int id);
     }
 
 }

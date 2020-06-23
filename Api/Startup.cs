@@ -12,6 +12,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using Api.Data.Contexts;
+using Api.Data.Services;
+using Api.Interfaces;
+
 using Microsoft.EntityFrameworkCore; // Add to invoke UseSqlServer
 
 namespace Api
@@ -32,6 +35,8 @@ namespace Api
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=ReadyToGo;Trusted_Connection=True;ConnectRetryCount=0";
 	        services.AddDbContext<ReadyToGoContext>(options => options.UseSqlServer(connection));
+
+            services.AddTransient<ICheckListService, CheckListService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

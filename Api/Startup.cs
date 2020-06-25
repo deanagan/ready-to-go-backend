@@ -33,7 +33,7 @@ namespace Api
         {
             services.AddControllers();
 
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=ReadyToGo;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = Configuration["ConnectionStrings:DefaultConnection"];
 	        services.AddDbContext<ReadyToGoContext>(options => options.UseSqlServer(connection));
 
             services.AddTransient<ICheckListService, CheckListService>();

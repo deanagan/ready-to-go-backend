@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Api.Data.Contexts;
 using Api.Data.Services;
 using Api.Interfaces;
+using Api.Data.Access;
 
 using Microsoft.EntityFrameworkCore; // Add to invoke UseSqlServer
 
@@ -36,7 +37,9 @@ namespace Api
             var connection = Configuration["ConnectionStrings:DefaultConnection"];
 	        services.AddDbContext<ReadyToGoContext>(options => options.UseSqlServer(connection));
 
-            services.AddTransient<ICheckListService, CheckListService>();
+            services.AddScoped(typeof(IDataRepository<>), typeof(DataRepository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ICheckListService, CheckListService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

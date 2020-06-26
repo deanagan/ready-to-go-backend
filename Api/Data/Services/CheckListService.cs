@@ -1,13 +1,22 @@
 using System.Collections.Generic;
 using Api.Data.Models;
 using Api.Interfaces;
+using Api.Data.Contexts;
+using Api.Data.Access;
 
 namespace Api.Data.Services
 {
     public class CheckListService : ICheckListService
     {
+        private readonly IUnitOfWork _unitOfWork;
+        public CheckListService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         public CheckListView GetCheckList(int id)
         {
+            var t = _unitOfWork.Items;
+
             return new CheckListView {
                 Name = "Marathon",
                 Description = "A checklist on what I need to do tomorrow",

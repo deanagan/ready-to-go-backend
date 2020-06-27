@@ -11,6 +11,8 @@ namespace Api.Data.Access
         private DataRepository<Item> _items;
         private DataRepository<ItemDetail> _itemDetails;
 
+        private DataRepository<CheckListToItem> _checkListToItems;
+
         public UnitOfWork(ReadyToGoContext context)
         {
             _context = context;
@@ -28,6 +30,10 @@ namespace Api.Data.Access
         public IDataRepository<ItemDetail> ItemDetails
         {
             get { return _itemDetails ?? (_itemDetails = new DataRepository<ItemDetail>(_context));}
+        }
+        public IDataRepository<CheckListToItem> CheckListToItems
+        {
+            get { return _checkListToItems ?? (_checkListToItems = new DataRepository<CheckListToItem>(_context));}
         }
 
         public void Save()

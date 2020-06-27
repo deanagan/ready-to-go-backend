@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Api.Interfaces
 {
     public interface IDataRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
-        T Get(int id);
+        IQueryable<T> GetAll();
+        T Get(params object[] parameters);
+
+        IQueryable<T> GetUsingRawSql(string query, params object[] parameters);
+
     }
 }

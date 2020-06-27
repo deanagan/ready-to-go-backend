@@ -39,6 +39,11 @@ namespace Api.Data.Contexts
                     Id = 1,
                     Name = "Full Marathon",
                     Description = "This is a checklist for my full marathon!"
+                },
+                new CheckList {
+                    Id = 2,
+                    Name = "Jervis Bay Trip",
+                    Description = "Trip to Jervis Bay!"
                 }
             );
 
@@ -62,6 +67,16 @@ namespace Api.Data.Contexts
                     Id = 4,
                     Name = "Toothbrush",
                     ItemDetailId = 4
+                },
+                new Item {
+                    Id = 5,
+                    Name = "Snorkel",
+                    ItemDetailId = 5
+                },
+                new Item {
+                    Id = 6,
+                    Name = "Floaties",
+                    ItemDetailId = 6
                 }
             );
 
@@ -89,6 +104,18 @@ namespace Api.Data.Contexts
                     Description = "Bring the electric one!",
                     Ready = false,
                     Quantity = 1
+                },
+                new ItemDetail {
+                    Id = 5,
+                    Description = "Speedo Green Snorkel",
+                    Ready = false,
+                    Quantity = 1
+                },
+                new ItemDetail {
+                    Id = 6,
+                    Description = "Banana Shaped Floatie",
+                    Ready = false,
+                    Quantity = 1
                 }
             );
 
@@ -97,7 +124,11 @@ namespace Api.Data.Contexts
                 new CheckListToItem { CheckListId = 1, ItemId = 1 },
                 new CheckListToItem { CheckListId = 1, ItemId = 2 },
                 new CheckListToItem { CheckListId = 1, ItemId = 3 },
-                new CheckListToItem { CheckListId = 1, ItemId = 4 }
+                new CheckListToItem { CheckListId = 2, ItemId = 1 },
+                new CheckListToItem { CheckListId = 2, ItemId = 2 },
+                new CheckListToItem { CheckListId = 2, ItemId = 4 },
+                new CheckListToItem { CheckListId = 2, ItemId = 5 },
+                new CheckListToItem { CheckListId = 2, ItemId = 6 }
             );
         }
 

@@ -3,14 +3,16 @@ using Api.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Api.Migrations
 {
     [DbContext(typeof(ReadyToGoContext))]
-    partial class ReadyToGoContextModelSnapshot : ModelSnapshot
+    [Migration("20200627081640_InitialVersion")]
+    partial class InitialVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,6 +81,11 @@ namespace Api.Migrations
                         {
                             ItemDetailId = 3,
                             CheckListId = 1
+                        },
+                        new
+                        {
+                            ItemDetailId = 1,
+                            CheckListId = 2
                         },
                         new
                         {

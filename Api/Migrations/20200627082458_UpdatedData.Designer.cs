@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(ReadyToGoContext))]
-    [Migration("20200627074457_Initial")]
-    partial class Initial
+    [Migration("20200627082458_UpdatedData")]
+    partial class UpdatedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,59 +52,59 @@ namespace Api.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Api.Data.Models.CheckListToItem", b =>
+            modelBuilder.Entity("Api.Data.Models.CheckListToItemDetail", b =>
                 {
-                    b.Property<int>("ItemId")
+                    b.Property<int>("ItemDetailId")
                         .HasColumnType("int");
 
                     b.Property<int>("CheckListId")
                         .HasColumnType("int");
 
-                    b.HasKey("ItemId", "CheckListId");
+                    b.HasKey("ItemDetailId", "CheckListId");
 
                     b.HasIndex("CheckListId");
 
-                    b.ToTable("CheckListToItems");
+                    b.ToTable("CheckListToItemDetails");
 
                     b.HasData(
                         new
                         {
-                            ItemId = 1,
+                            ItemDetailId = 1,
                             CheckListId = 1
                         },
                         new
                         {
-                            ItemId = 2,
+                            ItemDetailId = 2,
                             CheckListId = 1
                         },
                         new
                         {
-                            ItemId = 3,
+                            ItemDetailId = 3,
                             CheckListId = 1
                         },
                         new
                         {
-                            ItemId = 1,
+                            ItemDetailId = 2,
                             CheckListId = 2
                         },
                         new
                         {
-                            ItemId = 2,
+                            ItemDetailId = 4,
                             CheckListId = 2
                         },
                         new
                         {
-                            ItemId = 4,
+                            ItemDetailId = 5,
                             CheckListId = 2
                         },
                         new
                         {
-                            ItemId = 5,
+                            ItemDetailId = 6,
                             CheckListId = 2
                         },
                         new
                         {
-                            ItemId = 6,
+                            ItemDetailId = 7,
                             CheckListId = 2
                         });
                 });
@@ -113,6 +113,9 @@ namespace Api.Migrations
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -125,31 +128,37 @@ namespace Api.Migrations
                         new
                         {
                             Id = 1,
+                            Description = "Extra T-shirts",
                             Name = "T-shirt"
                         },
                         new
                         {
                             Id = 2,
+                            Description = "Extra Pants",
                             Name = "Pants"
                         },
                         new
                         {
                             Id = 3,
+                            Description = "Empty Bottle",
                             Name = "Water Bottle"
                         },
                         new
                         {
                             Id = 4,
+                            Description = "Bring the electric one!",
                             Name = "Toothbrush"
                         },
                         new
                         {
                             Id = 5,
+                            Description = "Speedo Green Snorkel",
                             Name = "Snorkel"
                         },
                         new
                         {
                             Id = 6,
+                            Description = "Banana Shaped Floatie",
                             Name = "Floaties"
                         });
                 });
@@ -160,9 +169,6 @@ namespace Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
@@ -181,54 +187,55 @@ namespace Api.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Extra T-shirts",
-                            ItemId = 0,
+                            ItemId = 1,
                             Quantity = 3,
                             Ready = false
                         },
                         new
                         {
                             Id = 2,
-                            Description = "Extra Pants",
-                            ItemId = 0,
+                            ItemId = 2,
                             Quantity = 1,
                             Ready = false
                         },
                         new
                         {
                             Id = 3,
-                            Description = "Empty Bottle",
-                            ItemId = 0,
+                            ItemId = 3,
                             Quantity = 1,
                             Ready = false
                         },
                         new
                         {
                             Id = 4,
-                            Description = "Bring the electric one!",
-                            ItemId = 0,
+                            ItemId = 4,
                             Quantity = 1,
                             Ready = false
                         },
                         new
                         {
                             Id = 5,
-                            Description = "Speedo Green Snorkel",
-                            ItemId = 0,
+                            ItemId = 5,
                             Quantity = 1,
                             Ready = false
                         },
                         new
                         {
                             Id = 6,
-                            Description = "Banana Shaped Floatie",
-                            ItemId = 0,
+                            ItemId = 6,
                             Quantity = 1,
+                            Ready = false
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ItemId = 1,
+                            Quantity = 6,
                             Ready = false
                         });
                 });
 
-            modelBuilder.Entity("Api.Data.Models.CheckListToItem", b =>
+            modelBuilder.Entity("Api.Data.Models.CheckListToItemDetail", b =>
                 {
                     b.HasOne("Api.Data.Models.CheckList", "CheckList")
                         .WithMany("CheckListToItems")
@@ -236,9 +243,9 @@ namespace Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Api.Data.Models.Item", "Item")
-                        .WithMany("CheckListToItems")
-                        .HasForeignKey("ItemId")
+                    b.HasOne("Api.Data.Models.ItemDetail", "ItemDetail")
+                        .WithMany()
+                        .HasForeignKey("ItemDetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

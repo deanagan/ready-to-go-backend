@@ -110,11 +110,6 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Data.Models.Item", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ItemDetailId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -128,37 +123,31 @@ namespace Api.Migrations
                         new
                         {
                             Id = 1,
-                            ItemDetailId = 1,
                             Name = "T-shirt"
                         },
                         new
                         {
                             Id = 2,
-                            ItemDetailId = 2,
                             Name = "Pants"
                         },
                         new
                         {
                             Id = 3,
-                            ItemDetailId = 3,
                             Name = "Water Bottle"
                         },
                         new
                         {
                             Id = 4,
-                            ItemDetailId = 4,
                             Name = "Toothbrush"
                         },
                         new
                         {
                             Id = 5,
-                            ItemDetailId = 5,
                             Name = "Snorkel"
                         },
                         new
                         {
                             Id = 6,
-                            ItemDetailId = 6,
                             Name = "Floaties"
                         });
                 });
@@ -166,10 +155,15 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Data.Models.ItemDetail", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -186,6 +180,7 @@ namespace Api.Migrations
                         {
                             Id = 1,
                             Description = "Extra T-shirts",
+                            ItemId = 0,
                             Quantity = 3,
                             Ready = false
                         },
@@ -193,6 +188,7 @@ namespace Api.Migrations
                         {
                             Id = 2,
                             Description = "Extra Pants",
+                            ItemId = 0,
                             Quantity = 1,
                             Ready = false
                         },
@@ -200,6 +196,7 @@ namespace Api.Migrations
                         {
                             Id = 3,
                             Description = "Empty Bottle",
+                            ItemId = 0,
                             Quantity = 1,
                             Ready = false
                         },
@@ -207,6 +204,7 @@ namespace Api.Migrations
                         {
                             Id = 4,
                             Description = "Bring the electric one!",
+                            ItemId = 0,
                             Quantity = 1,
                             Ready = false
                         },
@@ -214,6 +212,7 @@ namespace Api.Migrations
                         {
                             Id = 5,
                             Description = "Speedo Green Snorkel",
+                            ItemId = 0,
                             Quantity = 1,
                             Ready = false
                         },
@@ -221,6 +220,7 @@ namespace Api.Migrations
                         {
                             Id = 6,
                             Description = "Banana Shaped Floatie",
+                            ItemId = 0,
                             Quantity = 1,
                             Ready = false
                         });
@@ -241,11 +241,11 @@ namespace Api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Api.Data.Models.ItemDetail", b =>
+            modelBuilder.Entity("Api.Data.Models.Item", b =>
                 {
-                    b.HasOne("Api.Data.Models.Item", "Item")
-                        .WithOne("ItemDetail")
-                        .HasForeignKey("Api.Data.Models.ItemDetail", "Id")
+                    b.HasOne("Api.Data.Models.ItemDetail", "ItemDetail")
+                        .WithOne("Item")
+                        .HasForeignKey("Api.Data.Models.Item", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

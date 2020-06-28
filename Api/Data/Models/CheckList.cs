@@ -11,6 +11,6 @@ namespace Api.Data.Models
         public string Description { get; set;}
 
         // Navigational Property
-        public ICollection<CheckListToItem> CheckListToItems { get; set; }
+        public ICollection<CheckListToItemDetail> CheckListToItems { get; set; }
     }
 }

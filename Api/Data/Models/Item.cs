@@ -8,12 +8,9 @@ namespace Api.Data.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public int ItemDetailId { get; set; }
+        public string Description { get; set; }
 
         // Navigational Property
-        public ICollection<CheckListToItem> CheckListToItems { get; set; }
-
         public ItemDetail ItemDetail { get; set; }
     }
 }

@@ -10,8 +10,7 @@ namespace Api.Data.Access
         private DataRepository<CheckList> _checklists;
         private DataRepository<Item> _items;
         private DataRepository<ItemDetail> _itemDetails;
-
-        private DataRepository<CheckListToItem> _checkListToItems;
+        private DataRepository<CheckListToItemDetail> _checkListToItemDetails;
 
         public UnitOfWork(ReadyToGoContext context)
         {
@@ -31,9 +30,9 @@ namespace Api.Data.Access
         {
             get { return _itemDetails ?? (_itemDetails = new DataRepository<ItemDetail>(_context));}
         }
-        public IDataRepository<CheckListToItem> CheckListToItems
+        public IDataRepository<CheckListToItemDetail> CheckListToItemDetails
         {
-            get { return _checkListToItems ?? (_checkListToItems = new DataRepository<CheckListToItem>(_context));}
+            get { return _checkListToItemDetails ?? (_checkListToItemDetails = new DataRepository<CheckListToItemDetail>(_context));}
         }
 
         public void Save()

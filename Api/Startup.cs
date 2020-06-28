@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using Api.Data.Contexts;
-using Api.Data.Services;
+using Api.Services;
 using Api.Interfaces;
 using Api.Data.Access;
 

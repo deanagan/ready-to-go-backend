@@ -7,7 +7,7 @@ namespace Api.Interfaces
         IDataRepository<CheckList> CheckLists { get; }
         IDataRepository<Item> Items { get; }
         IDataRepository<ItemDetail> ItemDetails { get; }
-        IDataRepository<CheckListToItem> CheckListToItems { get; }
+        IDataRepository<CheckListToItemDetail> CheckListToItemDetails { get; }
         void Save();
     }
 }

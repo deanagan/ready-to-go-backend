@@ -12,23 +12,23 @@ namespace Api.Data.Contexts
         }
 
         public DbSet<CheckList> CheckLists {get; set;}
-        public DbSet<CheckListToItem> CheckListToItems {get; set;}
+        public DbSet<CheckListToItemDetail> CheckListToItemDetails {get; set;}
         public DbSet<Item> Items {get; set;}
         public DbSet<ItemDetail> ItemDetails {get; set;}
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CheckListToItem>().HasKey(
-                cti => new { cti.ItemId, cti.CheckListId }
+            modelBuilder.Entity<CheckListToItemDetail>().HasKey(
+                cti => new { cti.ItemDetailId, cti.CheckListId }
             );
 
-            modelBuilder.Entity<Item>()
-                .HasOne<ItemDetail>(i => i.ItemDetail)
-                .WithOne(itd => itd.Item)
-                .HasForeignKey<ItemDetail>(itd => itd.Id);
+            modelBuilder.Entity<ItemDetail>()
+                .HasOne<Item>(i => i.Item)
+                .WithOne(itd => itd.ItemDetail)
+                .HasForeignKey<Item>(itd => itd.Id);
 
-            modelBuilder.Entity<ItemDetail>(
+            modelBuilder.Entity<Item>(
                 i => {
                     i.HasKey(i => i.Id);
                 }
@@ -51,84 +51,90 @@ namespace Api.Data.Contexts
                 new Item {
                     Id = 1,
                     Name = "T-shirt",
-                    ItemDetailId = 1
+                    Description = "Extra T-shirts"
                 },
                 new Item {
                     Id = 2,
                     Name = "Pants",
-                    ItemDetailId = 2
+                    Description = "Extra Pants"
                 },
                 new Item {
                     Id = 3,
                     Name = "Water Bottle",
-                    ItemDetailId = 3
+                    Description = "Empty Bottle"
                 },
                 new Item {
                     Id = 4,
                     Name = "Toothbrush",
-                    ItemDetailId = 4
+                    Description = "Bring the electric one!"
                 },
                 new Item {
                     Id = 5,
                     Name = "Snorkel",
-                    ItemDetailId = 5
+                    Description = "Speedo Green Snorkel",
                 },
                 new Item {
                     Id = 6,
                     Name = "Floaties",
-                    ItemDetailId = 6
+                    Description = "Banana Shaped Floatie",
                 }
             );
 
             modelBuilder.Entity<ItemDetail>().HasData(
                 new ItemDetail {
                     Id = 1,
-                    Description = "Extra T-shirts",
                     Ready = false,
-                    Quantity = 3
+                    Quantity = 3,
+                    ItemId = 1
                 },
                 new ItemDetail {
                     Id = 2,
-                    Description = "Extra Pants",
                     Ready = false,
-                    Quantity = 1
+                    Quantity = 1,
+                    ItemId = 2
                 },
                 new ItemDetail {
                     Id = 3,
-                    Description = "Empty Bottle",
                     Ready = false,
-                    Quantity = 1
+                    Quantity = 1,
+                    ItemId = 3
                 },
                 new ItemDetail {
                     Id = 4,
-                    Description = "Bring the electric one!",
                     Ready = false,
-                    Quantity = 1
+                    Quantity = 1,
+                    ItemId = 4
                 },
                 new ItemDetail {
                     Id = 5,
-                    Description = "Speedo Green Snorkel",
                     Ready = false,
-                    Quantity = 1
+                    Quantity = 1,
+                    ItemId = 5
                 },
                 new ItemDetail {
                     Id = 6,
-                    Description = "Banana Shaped Floatie",
                     Ready = false,
-                    Quantity = 1
+                    Quantity = 1,
+                    ItemId = 6
+                },
+                new ItemDetail {
+                    Id = 7,
+                    Ready = false,
+                    Quantity = 6,
+                    ItemId = 1
                 }
             );
 
 
-             modelBuilder.Entity<CheckListToItem>().HasData(
-                new CheckListToItem { CheckListId = 1, ItemId = 1 },
-                new CheckListToItem { CheckListId = 1, ItemId = 2 },
-                new CheckListToItem { CheckListId = 1, ItemId = 3 },
-                new CheckListToItem { CheckListId = 2, ItemId = 1 },
-                new CheckListToItem { CheckListId = 2, ItemId = 2 },
-                new CheckListToItem { CheckListId = 2, ItemId = 4 },
-                new CheckListToItem { CheckListId = 2, ItemId = 5 },
-                new CheckListToItem { CheckListId = 2, ItemId = 6 }
+             modelBuilder.Entity<CheckListToItemDetail>().HasData(
+                new CheckListToItemDetail { CheckListId = 1, ItemDetailId = 1 },
+                new CheckListToItemDetail { CheckListId = 1, ItemDetailId = 2 },
+                new CheckListToItemDetail { CheckListId = 1, ItemDetailId = 3 },
+                new CheckListToItemDetail { CheckListId = 2, ItemDetailId = 2 },
+                new CheckListToItemDetail { CheckListId = 2, ItemDetailId = 4 },
+                new CheckListToItemDetail { CheckListId = 2, ItemDetailId = 5 },
+                new CheckListToItemDetail { CheckListId = 2, ItemDetailId = 6 },
+                new CheckListToItemDetail { CheckListId = 2, ItemDetailId = 7 }
             );
         }
 

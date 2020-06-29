@@ -34,5 +34,18 @@ namespace Api.Tests
             // Act
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
+
+         [Fact]
+        public async void ReturnResourceNotFound_WhenDoingGetListWithNonExistingId()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var result = await client.GetAsync("/api/checklist/getlist/111");
+
+            // Act
+            result.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
     }
 }

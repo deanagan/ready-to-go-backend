@@ -22,19 +22,30 @@ namespace Api.Services
             return new CheckListView {
                     Name = checkList.Name,
                     Description = checkList.Description,
-                    Items = GetItemViews(id).ToList()
+                    Items = (from checklistItemDetail in _unitOfWork.CheckListToItemDetails.GetAll()
+                            where checklistItemDetail.CheckListId == id
+                            join itemDetail in _unitOfWork.ItemDetails.GetAll()
+                            on checklistItemDetail.ItemDetailId equals itemDetail.Id
+                            join item in _unitOfWork.Items.GetAll()
+                            on itemDetail.ItemId equals item.Id
+                            select new ItemView {
+                                Name = item.Name,
+                                Description = item.Description,
+                                Quantity = itemDetail.Quantity,
+                                IsReady = itemDetail.Ready,
+                            }).ToList()
                 };
         }
 
         public IEnumerable<CheckListView> GetCheckLists()
         {
             var items =
-                   (from checkLists in _unitOfWork.CheckLists.GetAll()
+                   (from checkList in _unitOfWork.CheckLists.GetAll()
                     select new CheckListView {
-                        Name = checkLists.Name,
-                        Description = checkLists.Description,
+                        Name = checkList.Name,
+                        Description = checkList.Description,
                         Items = (from checklistItemDetail in _unitOfWork.CheckListToItemDetails.GetAll()
-                            where checklistItemDetail.CheckListId == checkLists.Id
+                            where checklistItemDetail.CheckListId == checkList.Id
                             join itemDetail in _unitOfWork.ItemDetails.GetAll()
                             on checklistItemDetail.ItemDetailId equals itemDetail.Id
                             join item in _unitOfWork.Items.GetAll()
@@ -48,23 +59,6 @@ namespace Api.Services
                     }
                     );
             return items.ToList();
-        }
-
-        private IEnumerable<ItemView> GetItemViews(int id)
-        {
-            var itemViews = from checklistItemDetail in _unitOfWork.CheckListToItemDetails.GetAll()
-                            where checklistItemDetail.CheckListId == id
-                            join itemDetail in _unitOfWork.ItemDetails.GetAll()
-                            on checklistItemDetail.ItemDetailId equals itemDetail.Id
-                            join item in _unitOfWork.Items.GetAll()
-                            on itemDetail.ItemId equals item.Id
-                            select new ItemView {
-                                Name = item.Name,
-                                Description = item.Description,
-                                Quantity = itemDetail.Quantity,
-                                IsReady = itemDetail.Ready,
-                            };
-            return itemViews.AsEnumerable();
         }
     }
 }

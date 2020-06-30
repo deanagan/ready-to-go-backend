@@ -24,13 +24,33 @@ namespace Api.Controllers
         [HttpGet("[action]")]
         public IActionResult GetAllLists()
         {
-            return Ok(_checkListService.GetCheckLists());
+            try
+            {
+                return Ok(_checkListService.GetCheckLists());
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpGet("[action]/{id}")]
         public IActionResult GetList(int id)
         {
-            return Ok(_checkListService.GetCheckList(id));
+            try
+            {
+                var result = _checkListService.GetCheckList(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

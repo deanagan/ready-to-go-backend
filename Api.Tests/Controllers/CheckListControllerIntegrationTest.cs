@@ -35,7 +35,7 @@ namespace Api.Tests
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
-         [Fact]
+        [Fact]
         public async void ReturnResourceNotFound_WhenDoingGetListWithNonExistingId()
         {
             // Arrange
@@ -47,5 +47,6 @@ namespace Api.Tests
             // Act
             result.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
+
     }
 }

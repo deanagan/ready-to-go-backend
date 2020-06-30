@@ -18,6 +18,10 @@ namespace Api.Services
         public CheckListView GetCheckList(int id)
         {
             var checkList =  _unitOfWork.CheckLists.Get(id);
+            if (checkList == null)
+            {
+                return null;
+            }
 
             return new CheckListView {
                     Name = checkList.Name,

@@ -5,7 +5,7 @@ using FluentAssertions;
 
 namespace Api.Tests
 {
-    public class CheckListControllerShould
+    public class CheckListControllerIntegrationShould
     {
         private WebApplicationFactory<Startup> _factory = new WebApplicationFactory<Startup>();
 

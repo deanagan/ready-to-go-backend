@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Api.Interfaces;
+using Api.Data.Models;
 
 namespace Api.Controllers
 {
@@ -51,6 +52,26 @@ namespace Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult Create([FromBody]CheckListView checkListView)
+        {
+            if (checkListView != null)
+            {
+                try
+                {
+                    _checkListService.CreateCheckList(checkListView);
+                    return Ok();
+                }
+                catch(Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+
+            return BadRequest("Checklist creation failed.");
+
         }
     }
 }

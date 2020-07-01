@@ -8,6 +8,8 @@ namespace Api.Interfaces
     {
         IEnumerable<CheckListView> GetCheckLists();
         CheckListView GetCheckList(int id);
+
+        void CreateCheckList(CheckListView checkListView);
     }
 
 }

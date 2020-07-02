@@ -35,5 +35,14 @@ namespace Api.Data.Access
             return _dbSet.Find(parameters);
         }
 
+        public void Add(T parameter)
+        {
+            _dbSet.Add(parameter);
+        }
+
+        public void AddRange(IEnumerable<T> parameters)
+        {
+            _dbSet.AddRange(parameters);
+        }
     }
 }

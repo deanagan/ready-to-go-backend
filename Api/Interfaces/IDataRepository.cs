@@ -10,5 +10,8 @@ namespace Api.Interfaces
 
         IQueryable<T> GetUsingRawSql(string query, params object[] parameters);
 
+        void Add(T parameter);
+        void AddRange(IEnumerable<T> parameters);
+
     }
 }

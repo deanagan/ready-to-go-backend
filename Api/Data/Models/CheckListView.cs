@@ -7,6 +7,6 @@ namespace Api.Data.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public List<ItemView> Items { get; set; }
+        public List<ItemView> ItemViews { get; set; }
     }
 }

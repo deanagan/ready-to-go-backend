@@ -3,14 +3,16 @@ using Api.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Api.Migrations
 {
     [DbContext(typeof(ReadyToGoContext))]
-    partial class ReadyToGoContextModelSnapshot : ModelSnapshot
+    [Migration("20200702074802_ItemDetailNotes")]
+    partial class ItemDetailNotes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,8 +173,8 @@ namespace Api.Migrations
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Notes")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -189,7 +191,7 @@ namespace Api.Migrations
                         {
                             Id = 1,
                             ItemId = 1,
-                            Notes = "Some notes",
+                            Notes = 0,
                             Quantity = 3,
                             Ready = false
                         },
@@ -197,7 +199,7 @@ namespace Api.Migrations
                         {
                             Id = 2,
                             ItemId = 2,
-                            Notes = "Some notes",
+                            Notes = 0,
                             Quantity = 1,
                             Ready = false
                         },
@@ -205,7 +207,7 @@ namespace Api.Migrations
                         {
                             Id = 3,
                             ItemId = 3,
-                            Notes = "Some notes",
+                            Notes = 0,
                             Quantity = 1,
                             Ready = false
                         },
@@ -213,7 +215,7 @@ namespace Api.Migrations
                         {
                             Id = 4,
                             ItemId = 4,
-                            Notes = "Some notes",
+                            Notes = 0,
                             Quantity = 1,
                             Ready = false
                         },
@@ -221,7 +223,7 @@ namespace Api.Migrations
                         {
                             Id = 5,
                             ItemId = 5,
-                            Notes = "Some notes",
+                            Notes = 0,
                             Quantity = 1,
                             Ready = false
                         },
@@ -229,7 +231,7 @@ namespace Api.Migrations
                         {
                             Id = 6,
                             ItemId = 6,
-                            Notes = "Some notes",
+                            Notes = 0,
                             Quantity = 1,
                             Ready = false
                         },
@@ -237,7 +239,7 @@ namespace Api.Migrations
                         {
                             Id = 7,
                             ItemId = 1,
-                            Notes = "Some notes",
+                            Notes = 0,
                             Quantity = 6,
                             Ready = false
                         });

@@ -85,42 +85,49 @@ namespace Api.Data.Contexts
                     Id = 1,
                     Ready = false,
                     Quantity = 3,
+                    Notes = "Some notes",
                     ItemId = 1
                 },
                 new ItemDetail {
                     Id = 2,
                     Ready = false,
                     Quantity = 1,
+                    Notes = "Some notes",
                     ItemId = 2
                 },
                 new ItemDetail {
                     Id = 3,
                     Ready = false,
                     Quantity = 1,
+                    Notes = "Some notes",
                     ItemId = 3
                 },
                 new ItemDetail {
                     Id = 4,
                     Ready = false,
                     Quantity = 1,
+                    Notes = "Some notes",
                     ItemId = 4
                 },
                 new ItemDetail {
                     Id = 5,
                     Ready = false,
                     Quantity = 1,
+                    Notes = "Some notes",
                     ItemId = 5
                 },
                 new ItemDetail {
                     Id = 6,
                     Ready = false,
                     Quantity = 1,
+                    Notes = "Some notes",
                     ItemId = 6
                 },
                 new ItemDetail {
                     Id = 7,
                     Ready = false,
                     Quantity = 6,
+                    Notes = "Some notes",
                     ItemId = 1
                 }
             );

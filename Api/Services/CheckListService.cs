@@ -37,6 +37,7 @@ namespace Api.Services
                                 Description = item.Description,
                                 Quantity = itemDetail.Quantity,
                                 IsReady = itemDetail.Ready,
+                                Notes = itemDetail.Notes
                             }).ToList()
                 };
         }
@@ -59,6 +60,7 @@ namespace Api.Services
                                 Description = item.Description,
                                 Quantity = itemDetail.Quantity,
                                 IsReady = itemDetail.Ready,
+                                Notes = itemDetail.Notes
                             }).ToList()
                     }
                     );

@@ -6,5 +6,6 @@ namespace Api.Data.Models
         public string Description { get; set; }
         public bool IsReady { get; set; }
         public int Quantity { get; set; }
+        public string Notes { get; set; }
     }
 }

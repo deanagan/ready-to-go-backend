@@ -110,7 +110,9 @@ namespace Api.Migrations
             modelBuilder.Entity("Api.Data.Models.Item", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -181,6 +183,8 @@ namespace Api.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
 
                     b.ToTable("ItemDetails");
 
@@ -258,11 +262,11 @@ namespace Api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Api.Data.Models.Item", b =>
+            modelBuilder.Entity("Api.Data.Models.ItemDetail", b =>
                 {
-                    b.HasOne("Api.Data.Models.ItemDetail", "ItemDetail")
-                        .WithOne("Item")
-                        .HasForeignKey("Api.Data.Models.Item", "Id")
+                    b.HasOne("Api.Data.Models.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

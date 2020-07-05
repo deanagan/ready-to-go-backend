@@ -31,7 +31,7 @@ namespace Api.Services
                             join itemDetail in _unitOfWork.ItemDetails.GetAll()
                             on checklistItemDetail.ItemDetailId equals itemDetail.Id
                             join item in _unitOfWork.Items.GetAll()
-                            on itemDetail.ItemId equals item.Id
+                            on itemDetail.Item.Id equals item.Id
                             select new ItemView {
                                 Name = item.Name,
                                 Description = item.Description,
@@ -54,7 +54,7 @@ namespace Api.Services
                             join itemDetail in _unitOfWork.ItemDetails.GetAll()
                             on checklistItemDetail.ItemDetailId equals itemDetail.Id
                             join item in _unitOfWork.Items.GetAll()
-                            on itemDetail.ItemId equals item.Id
+                            on itemDetail.Item.Id equals item.Id
                             select new ItemView {
                                 Name = item.Name,
                                 Description = item.Description,
@@ -76,29 +76,29 @@ namespace Api.Services
 
             _unitOfWork.CheckLists.Add(checkList);
 
-            var itemDetails = checkListView.ItemViews.Select(itemView =>
-                    new ItemDetail {
-                        Ready = itemView.IsReady,
-                        Quantity = itemView.Quantity,
-                        Notes = itemView.Notes
-                    });
-
-            _unitOfWork.ItemDetails.AddRange(itemDetails);
-
-            _unitOfWork.CheckListToItemDetails.AddRange(itemDetails.Select(itemDetail =>
-                    new CheckListToItemDetail {
-                        ItemDetailId = itemDetail.Id,
-                        CheckListId = checkList.Id
-                    }));
-
-            _unitOfWork.Items.AddRange(
-                itemDetails.Zip(checkListView.ItemViews, (itemDetail, itemView) =>
+            var items = checkListView.ItemViews.Select(
+                    itemView =>
                     new Item {
                         Name = itemView.Name,
                         Description = itemView.Description,
-                        ItemDetail = itemDetail
-                    }
-            ));
+                    });
+
+            var itemDetails = checkListView.ItemViews.Zip(items,
+                    (itemView, item) =>
+                    new ItemDetail {
+                        Ready = itemView.IsReady,
+                        Quantity = itemView.Quantity,
+                        Notes = itemView.Notes,
+                        Item = item
+                    });
+
+            _unitOfWork.CheckListToItemDetails.AddRange(itemDetails.Select(itemDetail =>
+                    new CheckListToItemDetail {
+                        ItemDetail = itemDetail,
+                        CheckList = checkList
+                    }));
+
+            _unitOfWork.Save();
 
         }
     }

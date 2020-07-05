@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Api.Data.Models;
 
@@ -19,20 +20,34 @@ namespace Api.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CheckListToItemDetail>().HasKey(
-                cti => new { cti.ItemDetailId, cti.CheckListId }
-            );
+            modelBuilder.Entity<CheckListToItemDetail>()
+                .HasKey(
+                    checkListToItemDetail => new
+                    {
+                        checkListToItemDetail.ItemDetailId,
+                        checkListToItemDetail.CheckListId
+                    }
+                );
+
+            modelBuilder.Entity<CheckListToItemDetail>()
+                        .HasOne(pt => pt.CheckList)
+                        .WithMany(p => p.CheckListToItems)
+                        .HasForeignKey(pt => pt.CheckListId);
+
+                    modelBuilder.Entity<CheckListToItemDetail>()
+                        .HasOne(pt => pt.ItemDetail)
+                        .WithMany(t => t.CheckListToItems)
+                        .HasForeignKey(pt => pt.ItemDetailId);
+
 
             modelBuilder.Entity<ItemDetail>()
-                .HasOne<Item>(i => i.Item)
-                .WithOne(itd => itd.ItemDetail)
-                .HasForeignKey<Item>(itd => itd.Id);
+                .HasOne<Item>(itemDetail => itemDetail.Item);
 
-            modelBuilder.Entity<Item>(
-                i => {
-                    i.HasKey(i => i.Id);
-                }
-            );
+
+            modelBuilder.Entity<Item>().HasKey(i => i.Id);
+
+            modelBuilder.Entity<CheckList>()
+                .HasMany<CheckListToItemDetail>(cid => cid.CheckListToItems);
 
             modelBuilder.Entity<CheckList>().HasData(
                 new CheckList {
@@ -132,8 +147,7 @@ namespace Api.Data.Contexts
                 }
             );
 
-
-             modelBuilder.Entity<CheckListToItemDetail>().HasData(
+            modelBuilder.Entity<CheckListToItemDetail>().HasData(
                 new CheckListToItemDetail { CheckListId = 1, ItemDetailId = 1 },
                 new CheckListToItemDetail { CheckListId = 1, ItemDetailId = 2 },
                 new CheckListToItemDetail { CheckListId = 1, ItemDetailId = 3 },

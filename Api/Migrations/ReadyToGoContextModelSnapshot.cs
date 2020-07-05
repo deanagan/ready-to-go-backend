@@ -256,7 +256,7 @@ namespace Api.Migrations
                         .IsRequired();
 
                     b.HasOne("Api.Data.Models.ItemDetail", "ItemDetail")
-                        .WithMany()
+                        .WithMany("CheckListToItems")
                         .HasForeignKey("ItemDetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

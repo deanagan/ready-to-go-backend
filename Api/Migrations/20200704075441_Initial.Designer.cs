@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(ReadyToGoContext))]
-    [Migration("20200704005121_Initial")]
+    [Migration("20200704075441_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -258,7 +258,7 @@ namespace Api.Migrations
                         .IsRequired();
 
                     b.HasOne("Api.Data.Models.ItemDetail", "ItemDetail")
-                        .WithMany()
+                        .WithMany("CheckListToItems")
                         .HasForeignKey("ItemDetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

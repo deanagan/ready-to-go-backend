@@ -16,9 +16,9 @@ namespace Api.Tests
             var client = _factory.CreateClient();
 
             // Act
-            var result = await client.GetAsync("/api/checklist/getalllists");
+            var result = await client.GetAsync("/v1/readytogo/api/checklists");
 
-            // Act
+            // Assert
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
@@ -29,23 +29,10 @@ namespace Api.Tests
             var client = _factory.CreateClient();
 
             // Act
-            var result = await client.GetAsync("/api/checklist/getlist/1");
+            var result = await client.GetAsync("/v1/readytogo/api/checklists/1");
 
-            // Act
+            // Assert
             result.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
-
-        [Fact]
-        public async void ReturnResourceNotFound_WhenDoingGetListWithNonExistingId()
-        {
-            // Arrange
-            var client = _factory.CreateClient();
-
-            // Act
-            var result = await client.GetAsync("/api/checklist/getlist/111");
-
-            // Act
-            result.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
     }

@@ -8,7 +8,7 @@ using Api.Data.Models;
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("v1/readytogo/api")]
     public class CheckListController : ControllerBase
     {
         private ICheckListService _checkListService;
@@ -21,7 +21,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult GetAllLists()
+        public IActionResult CheckLists()
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("[action]/{id}")]
-        public IActionResult GetList(int id)
+        public IActionResult CheckLists(int id)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult Create([FromBody]CheckListView checkListView)
+        public IActionResult CheckLists([FromBody]CheckListView checkListView)
         {
             if (checkListView != null)
             {

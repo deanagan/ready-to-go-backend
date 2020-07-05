@@ -27,9 +27,9 @@ namespace Api.Tests
                     .Returns(new List<CheckListView>());
 
             // Act
-            var result = controller.GetAllLists() as ObjectResult;
+            var result = controller.CheckLists() as ObjectResult;
 
-            // Act
+            // Assert
             result.StatusCode.Should().Be(StatusCodes.Status200OK);
         }
 
@@ -42,9 +42,9 @@ namespace Api.Tests
                     .Throws(new Exception());
 
             // Act
-            var result = controller.GetAllLists() as ObjectResult;
+            var result = controller.CheckLists() as ObjectResult;
 
-            // Act
+            // Assert
             result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
         }
 

@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Api.Data.Models;
 using Api.Interfaces;
-using Api.Data.Contexts;
-using Api.Data.Access;
 
 namespace Api.Services
 {

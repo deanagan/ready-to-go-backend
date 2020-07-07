@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Api.Interfaces;
 using Api.Data.Models;
+using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
@@ -52,15 +53,18 @@ namespace Api.Controllers
             }
         }
 
+        // TODO: async-await eventually
         [HttpPost("[action]")]
-        public IActionResult CheckLists([FromBody]CheckListView checkListView)
+        public IActionResult CheckLists(CheckListView checkListView)
         {
             if (checkListView != null)
             {
                 try
                 {
                     _checkListService.CreateCheckList(checkListView);
-                     return StatusCode((int)HttpStatusCode.Created);
+                    // TODO: Because we use a view model approach, we may not have
+                    // any id to pass
+                    return CreatedAtAction(nameof(CheckListView), new { id = 1 }, checkListView);
                 }
                 catch(Exception ex)
                 {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Xunit;
 using FluentAssertions;
+using AutoFixture;
 using Moq;
 using Api.Interfaces;
 using Api.Controllers;
@@ -17,6 +18,7 @@ namespace Api.Tests
     {
         private ICheckListService _checkListService = Mock.Of<ICheckListService>();
         private ILogger<CheckListController> _fakeLogger = Mock.Of<ILogger<CheckListController>>();
+        private Fixture _fixture = new Fixture();
 
         [Fact]
         public void ReturnOk_WhenReturningEmptyList()
@@ -46,6 +48,23 @@ namespace Api.Tests
 
             // Assert
             result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+        }
+
+        [Fact]
+        public void ReturnContentCreated_WhenValidCheckListViewPosted()
+        {
+            // Arrange
+            var controller = new CheckListController(_fakeLogger, _checkListService);
+            var checkListView = Mock.Of<CheckListView>(clv =>
+                clv.Name == _fixture.Create<string>() &&
+                clv.Description == _fixture.Create<string>() &&
+                clv.ItemViews == _fixture.Create<List<ItemView>>());
+
+            // Act
+            var result = controller.CheckLists(checkListView) as ObjectResult;
+
+            // Assert
+            result.StatusCode.Should().Be(StatusCodes.Status201Created);
         }
 
 

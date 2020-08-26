@@ -5,9 +5,18 @@ using FluentAssertions;
 
 namespace Api.Tests
 {
-    public class CheckListControllerIntegrationShould
+    public class CheckListControllerIntegrationShould : IClassFixture<WebApiTesterFactory>
     {
-        private WebApplicationFactory<Startup> _factory = new WebApplicationFactory<Startup>();
+        private readonly WebApiTesterFactory _factory;
+
+        public CheckListControllerIntegrationShould(WebApiTesterFactory factory)
+        {
+            _factory = factory;
+        }
+       // private WebApplicationFactory<TestStartup> _factory = new WebApplicationFactory<TestStartup>();
+       //public class CheckListControllerIntegrationShould
+       //{
+       //private WebApplicationFactory<Startup> _factory = new WebApplicationFactory<Startup>();
 
         [Fact]
         public async void ReturnOk_WhenDoingGetAllLists()

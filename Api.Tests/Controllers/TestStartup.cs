@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,50 +12,64 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.TestHost;
 
 using Api.Data.Contexts;
 using Api.Services;
 using Api.Interfaces;
 using Api.Data.Access;
+using Api.Controllers;
 
 using Microsoft.EntityFrameworkCore; // Add to invoke UseSqlServer
-using Api.Controllers;
+
+using Microsoft.Data.Sqlite;
 
 namespace Api.Tests
 {
-    public class TestStartup
+    public class TestStartup : Startup, IDisposable
     {
+        private const string InMemoryConnectionString = "DataSource=:memory:";
+        private readonly SqliteConnection _connection;
+
         public TestStartup(IConfiguration configuration)
+            :base(configuration)
         {
-            Configuration = configuration;
+            _connection = new SqliteConnection(InMemoryConnectionString);
+
+             var webHostBuilder = new WebHostBuilder().UseStartup<TestStartup>();
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public override void ConfigureDBContext(IServiceCollection services)
         {
-            services.AddControllers();
-            //services.AddMvc();//.AddApplicationPart(typeof(TestStartup).Assembly);
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddMvc().AddApplicationPart(typeof(CheckListController).Assembly);
 
-            var connection = Configuration["ConnectionStrings:DefaultConnection"];
-	        services.AddDbContext<ReadyToGoContext>(options => options.UseSqlServer(connection));
-
-            services.AddScoped(typeof(IDataRepository<>), typeof(DataRepository<>));
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ICheckListService, CheckListService>();
+			var connection = new SqliteConnection(InMemoryConnectionString);
+			services
+			  .AddEntityFrameworkSqlite()
+			  .AddDbContext<ReadyToGoContext>(
+				options => options.UseSqlite(connection)
+			  );
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public override void EnsureDatabaseCreated(ReadyToGoContext dbContext)
+		{
+			dbContext.Database.OpenConnection();
+			dbContext.Database.EnsureCreated();
+		}
+
+        public void Dispose()
+        {
+            _connection.Close();
+        }
+
+        public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseRouting();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

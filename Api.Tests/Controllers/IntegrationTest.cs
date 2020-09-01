@@ -1,12 +1,11 @@
 using System;
 using System.Net.Http;
-using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.Data.Sqlite;
 
 using Api.Data.Contexts;

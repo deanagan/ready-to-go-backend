@@ -12,24 +12,17 @@ using System;
 
 namespace Api.Tests
 {
-    public class CheckListControllerIntegrationShould : IClassFixture<WebApiTesterFactory>
+    public class CheckListControllerIntegrationShould : IntegrationTest
     {
-        private readonly WebApiTesterFactory _factory;
-        public HttpClient HttpClient { get; }
 
-        public CheckListControllerIntegrationShould(WebApiTesterFactory factory)
-        {
-            _factory = factory;
-        }
 
-        [Fact(Skip = "Doesn't work at the moment")]
-        public async void ReturnOk_WhenDoingGetAllLists()
+        [Fact]
+        public async Task ReturnOk_WhenDoingGetAllLists()
         {
             // Arrange
-            var client = _factory.CreateClient();
 
             // Act
-            var result = await client.GetAsync("/v1/readytogo/api/checklists");
+            var result = await GetClient().GetAsync("/v1/readytogo/api/checklists");
 
             if (result.IsSuccessStatusCode)
             {
@@ -37,16 +30,14 @@ namespace Api.Tests
             }
             // Assert
             result.StatusCode.Should().Be(HttpStatusCode.OK);
+
         }
 
-        [Fact(Skip = "Doesn't work at the moment")]
+        [Fact]
         public async void ReturnOk_WhenDoingGetList()
         {
-            // Arrange
-            var client = _factory.CreateClient();
-
             // Act
-            var result = await client.GetAsync("/v1/readytogo/api/checklists/1");
+            var result = await GetClient().GetAsync("/v1/readytogo/api/checklists/1");
 
             // Assert
             result.StatusCode.Should().Be(HttpStatusCode.OK);

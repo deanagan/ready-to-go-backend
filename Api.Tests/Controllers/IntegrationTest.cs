@@ -6,21 +6,21 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.Sqlite;
+//using Microsoft.Data.Sqlite;
 
 using Api.Data.Contexts;
 
 namespace Api.Tests
 {
 
-    public class IntegrationTest : IDisposable
+    public class IntegrationTest// : IDisposable
     {
         private readonly HttpClient _client;
         private const string InMemoryConnectionString = "DataSource=:memory:";
-        private readonly SqliteConnection _connection;
-        public IntegrationTest()
+        //private readonly SqliteConnection _connection;
+        protected IntegrationTest()
         {
-            _connection = new SqliteConnection(InMemoryConnectionString);
+            //_connection = new SqliteConnection(InMemoryConnectionString);
             var appFactory = new WebApplicationFactory<Startup>()
                             .WithWebHostBuilder(builder =>
                                     builder.ConfigureServices(
@@ -28,7 +28,8 @@ namespace Api.Tests
                                         {
                                             services.RemoveAll(typeof(ReadyToGoContext));
                                             services.AddDbContext<ReadyToGoContext>(
-                                                options => options.UseSqlite(_connection)
+                                                //options => options.UseSqlite(_connection)
+                                                options => options.UseInMemoryDatabase("InMemoryDbForTesting")
                                             );
                                         }
                                     )
@@ -43,10 +44,10 @@ namespace Api.Tests
         }
 
 
-        public void Dispose()
-        {
-            _connection.Close();
-        }
+        // public void Dispose()
+        // {
+        //     _connection.Close();
+        // }
 
 
     }

@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Net;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 using Api.Interfaces;
 using Api.Data.Models;
-using System.Threading.Tasks;
+
 
 namespace Api.Controllers
 {

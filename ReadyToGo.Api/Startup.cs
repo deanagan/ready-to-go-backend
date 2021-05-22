@@ -63,6 +63,8 @@ namespace Api
             {
                 endpoints.MapControllers();
             });
+
+            var s = env.ApplicationName;
         }
 
         public virtual void EnsureDatabaseCreated(ReadyToGoContext dbContext)

@@ -20,6 +20,17 @@ END
 GO
 
 
+CREATE PROC dbo.Reporter_GetAll
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	SELECT ReporterId, Email, FirstName, LastName, PasswordHash
+	FROM dbo.Reporter
+END
+GO
+
+
 -- CREATE PROC dbo.Answer_Delete
 -- 	(
 -- 	@AnswerId int

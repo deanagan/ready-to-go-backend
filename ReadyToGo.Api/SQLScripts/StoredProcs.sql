@@ -30,7 +30,68 @@ BEGIN
 END
 GO
 
+CREATE PROC dbo.Reporter_PutEmail
+	(
+	@ReporterId int,
+	@Email nvarchar(100)
+)
+AS
+BEGIN
+	SET NOCOUNT ON
 
+	UPDATE dbo.Reporter
+	SET Email = @Email
+	WHERE ReporterId = @ReporterId
+
+	SELECT ReporterId, Email, FirstName, LastName, PasswordHash
+	FROM dbo.Reporter
+	WHERE ReporterId = @ReporterId
+END
+GO
+
+CREATE PROC dbo.Reporter_PutName
+	(
+	@ReporterId int,
+	@FirstName nvarchar(200),
+	@LastName nvarchar(200)
+)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	UPDATE dbo.Reporter
+	SET FirstName = @FirstName
+	WHERE ReporterId = @ReporterId
+
+	UPDATE dbo.Reporter
+	SET LastName = @LastName
+	WHERE ReporterId = @ReporterId
+
+	SELECT ReporterId, Email, FirstName, LastName, PasswordHash
+	FROM dbo.Reporter
+	WHERE ReporterId = @ReporterId
+END
+GO
+
+
+CREATE PROC dbo.Reporter_PutPasswordHash
+	(
+	@ReporterId int,
+	@PasswordHash nvarchar(max)
+)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	UPDATE dbo.Reporter
+	SET PasswordHash = @PasswordHash
+	WHERE ReporterId = @ReporterId
+
+	SELECT ReporterId, Email, FirstName, LastName, PasswordHash
+	FROM dbo.Reporter
+	WHERE ReporterId = @ReporterId
+END
+GO
 -- CREATE PROC dbo.Answer_Delete
 -- 	(
 -- 	@AnswerId int

@@ -11,3 +11,5 @@ EXEC dbo.Reporter_PutEmail @ReporterId=4, @Email="quigon.jin@readytogo.com"
 EXEC dbo.Reporter_PutName @ReporterId=4, @FirstName="Qui Gon", @LastName="Jin"
 
 EXEC dbo.Reporter_PutPasswordHash @ReporterId=4, @PasswordHash="TheForce"
+
+EXEC dbo.Reporter_Get @ReporterId=4

@@ -19,6 +19,16 @@ BEGIN
 END
 GO
 
+CREATE PROC dbo.Reporter_Get(@ReporterId int)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+	SELECT ReporterId, Email, FirstName, LastName, PasswordHash
+	FROM dbo.Reporter
+	WHERE ReporterId = @ReporterId
+END
+GO
 
 CREATE PROC dbo.Reporter_GetAll
 AS
